@@ -3,7 +3,6 @@ const userInput = document.getElementById("userInput");
 const messages = document.getElementById("messages");
 const astroPup = document.getElementById("astroPup");
 const statusEl = document.getElementById("status");
-const audioPlayer = document.getElementById("audioPlayer");
 
 function addMessage(label, text) {
 const div = document.createElement("div");
@@ -13,20 +12,27 @@ messages.prepend(div);
 }
 
 function setSpeaking(isSpeaking) {
+if (!astroPup) return;
 astroPup.classList.toggle("speaking", isSpeaking);
 astroPup.classList.toggle("idle", !isSpeaking);
+if (statusEl) {
 statusEl.textContent = isSpeaking
 ? "Astro Pup is talking..."
 : "Astro Pup is ready.";
 }
+}
 
+if (sendBtn) {
 sendBtn.addEventListener("click", async () => {
 const text = userInput.value.trim();
-if (!text) return;
+if (!text) {
+alert("Type a message for Astro Pup first.");
+return;
+}
 
 addMessage("You", text);
 userInput.value = "";
-statusEl.textContent = "Astro Pup is thinking...";
+if (statusEl) statusEl.textContent = "Astro Pup is thinking...";
 
 try {
 const res = await fetch("/api/session", {
@@ -44,11 +50,16 @@ throw new Error(data.error || "Something went wrong");
 }
 
 addMessage("Astro Pup", data.reply || "Woof! Hi TechTotter!");
+setSpeaking(true);
 
+setTimeout(() => {
 setSpeaking(false);
+}, 1200);
 } catch (err) {
 setSpeaking(false);
-statusEl.textContent = "Astro Pup hit a little space bump.";
+if (statusEl) statusEl.textContent = "Astro Pup hit a little space bump.";
 addMessage("Error", err.message);
+console.error(err);
 }
 });
+}
