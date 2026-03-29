@@ -1,3 +1,5 @@
+alert("script.js loaded");
+
 const sendBtn = document.getElementById("sendBtn");
 const userInput = document.getElementById("userInput");
 const messages = document.getElementById("messages");
@@ -24,9 +26,11 @@ statusEl.textContent = isSpeaking
 
 if (sendBtn) {
 sendBtn.addEventListener("click", async () => {
+alert("Send button clicked");
+
 const text = userInput.value.trim();
 if (!text) {
-alert("Type a message for Astro Pup first.");
+alert("Type a message first.");
 return;
 }
 
@@ -60,6 +64,7 @@ setSpeaking(false);
 if (statusEl) statusEl.textContent = "Astro Pup hit a little space bump.";
 addMessage("Error", err.message);
 console.error(err);
+alert("There was an error: " + err.message);
 }
 });
 }
