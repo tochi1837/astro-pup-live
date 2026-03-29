@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Astro Pup</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="app">
+<h1>Meet Astro Pup ￼</h1>
+<p class="subtitle">Your Astro Pup’s digital companion</p>
+
+<div class="pup-wrap">
+<img
+id="astroPup"
+src="astro-pup.png"
+alt="Astro Pup"
+class="pup idle"
+/>
+<div id="status" class="status">Astro Pup is ready.</div>
+</div>
+
+<div class="intro-card">
+<p>
+Hey there, TechTotter! I’m Astro Pup — your physical toy Astro Pup’s
+digital companion. I bring your real Astro Pup to life right here on
+your screen. Are you ready to begin your adventure?
+</p>
+</div>
+
+<div class="chat-box">
+<textarea id="userInput" placeholder="Ask Astro Pup something..."></textarea>
+<button id="sendBtn">Send to Astro Pup</button>
+</div>
+
+<div id="messages" class="messages"></div>
+
+<audio id="audioPlayer" controls hidden></audio>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

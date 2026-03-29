@@ -1,0 +1,67 @@
+const sendBtn = document.getElementById("sendBtn");
+const userInput = document.getElementById("userInput");
+const messages = document.getElementById("messages");
+const astroPup = document.getElementById("astroPup");
+const statusEl = document.getElementById("status");
+const audioPlayer = document.getElementById("audioPlayer");
+
+function addMessage(label, text) {
+const div = document.createElement("div");
+div.className = "message";
+div.innerHTML = `<strong>${label}</strong>${text}`;
+messages.prepend(div);
+}
+
+function setSpeaking(isSpeaking) {
+astroPup.classList.toggle("speaking", isSpeaking);
+astroPup.classList.toggle("idle", !isSpeaking);
+statusEl.textContent = isSpeaking
+? "Astro Pup is talking..."
+: "Astro Pup is ready.";
+}
+
+sendBtn.addEventListener("click", async () => {
+const text = userInput.value.trim();
+if (!text) return;
+
+addMessage("You", text);
+userInput.value = "";
+statusEl.textContent = "Astro Pup is thinking...";
+
+try {
+const res = await fetch("/api/session", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({ message: text })
+});
+
+const data = await res.json();
+
+if (!res.ok) {
+throw new Error(data.error || "Something went wrong");
+}
+
+addMessage("Astro Pup", data.reply || "Woof! Hi TechTotter!");
+
+if (data.audio) {
+setSpeaking(true);
+audioPlayer.src = `data:audio/mp3;base64,${data.audio}`;
+audioPlayer.hidden = false;
+
+audioPlayer.onended = () => {
+setSpeaking(false);
+};
+
+await audioPlayer.play();
+} else {
+setSpeaking(false);
+}
+} catch (err) {
+setSpeaking(false);
+statusEl.textContent = "Astro Pup hit a little space bump.";
+addMessage("Error", err.message);
+}
+});
+
