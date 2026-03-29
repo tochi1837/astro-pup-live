@@ -1,0 +1,93 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: linear-gradient(to bottom, #081229, #132b5c);
+color: white;
+}
+
+.app {
+max-width: 800px;
+margin: 0 auto;
+padding: 24px;
+text-align: center;
+}
+
+h1 {
+margin-bottom: 8px;
+}
+
+.subtitle {
+margin-top: 0;
+opacity: 0.9;
+}
+
+.pup-wrap {
+margin: 24px 0;
+}
+
+.pup {
+width: 240px;
+max-width: 80%;
+transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.idle {
+filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+}
+
+.speaking {
+animation: bounce 0.45s infinite alternate;
+filter: drop-shadow(0 0 18px rgba(0, 200, 255, 0.95));
+}
+
+@keyframes bounce {
+from { transform: translateY(0) scale(1); }
+to { transform: translateY(-6px) scale(1.03); }
+}
+
+.status {
+margin-top: 12px;
+font-size: 14px;
+opacity: 0.9;
+}
+
+.intro-card,
+.chat-box,
+.messages {
+background: rgba(255,255,255,0.08);
+border-radius: 16px;
+padding: 16px;
+margin-top: 18px;
+}
+
+textarea {
+width: 100%;
+min-height: 100px;
+border-radius: 12px;
+border: none;
+padding: 12px;
+font-size: 16px;
+box-sizing: border-box;
+}
+
+button {
+margin-top: 12px;
+padding: 12px 18px;
+border: none;
+border-radius: 12px;
+font-size: 16px;
+cursor: pointer;
+}
+
+.message {
+text-align: left;
+margin-bottom: 12px;
+padding: 12px;
+border-radius: 12px;
+background: rgba(255,255,255,0.06);
+}
+
+.message strong {
+display: block;
+margin-bottom: 6px;
+}
